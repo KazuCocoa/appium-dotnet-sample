@@ -15,4 +15,5 @@ packages
 AppiumDotNetSample/env.json
 .vs/
 *.pdb
+.DS_Store
 
