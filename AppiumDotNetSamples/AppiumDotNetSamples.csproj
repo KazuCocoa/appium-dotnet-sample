@@ -48,7 +48,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test.cs" />
+    <Compile Include="TestIosCreateSession.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="TestAndroidCreateSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
