@@ -20,15 +20,13 @@ namespace AppiumDotNetSamples
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.SetCapability(MobileCapabilityType.BrowserName, "");
-            capabilities.SetCapability(MobileCapabilityType.PlatformName, "Android");
-            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, "7.1.1");
+            capabilities.SetCapability(MobileCapabilityType.PlatformName, App.AndroidVersion());
+            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, App.AndroidPlatformVersion());
             capabilities.SetCapability(MobileCapabilityType.AutomationName, "UIAutomator2");
             capabilities.SetCapability(MobileCapabilityType.DeviceName, "Nexus");
             capabilities.SetCapability(MobileCapabilityType.App, App.AndroidApp());
 
-            Uri serverUri = Env.IsSauce() ? Env.sauceURI : Env.localUrl;
-
-            driver = new AndroidDriver<AndroidElement>(serverUri, capabilities, Env.INIT_TIMEOUT_SEC);
+            driver = new AndroidDriver<AndroidElement>(Env.ServerUri(), capabilities, Env.INIT_TIMEOUT_SEC);
             driver.Manage().Timeouts().ImplicitWait = Env.IMPLICIT_TIMEOUT_SEC;
         }
 

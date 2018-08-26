@@ -25,10 +25,8 @@ namespace AppiumDotNetSamples
             capabilities.SetCapability(MobileCapabilityType.AutomationName, "XCUITest");
             capabilities.SetCapability(MobileCapabilityType.DeviceName, "iPhone 6");
             capabilities.SetCapability(MobileCapabilityType.App, App.IOSApp());
-
-            Uri serverUri = Env.IsSauce() ? Env.sauceURI : Env.localUrl;
-
-            driver = new IOSDriver<IOSElement>(serverUri, capabilities, Env.INIT_TIMEOUT_SEC);
+            
+            driver = new IOSDriver<IOSElement>(Env.ServerUri(), capabilities, Env.INIT_TIMEOUT_SEC);
             driver.Manage().Timeouts().ImplicitWait = Env.IMPLICIT_TIMEOUT_SEC;
         }
 
