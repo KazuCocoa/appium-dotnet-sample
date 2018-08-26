@@ -8,7 +8,7 @@ namespace AppiumDotNetSamples.Helper
         {
             return Environment.GetEnvironmentVariable("SAUCE_LABS") != null;
         }
-        
+
         static public Uri ServerUri()
         {
             String sauceUserName = Environment.GetEnvironmentVariable("SAUCE_USERNAME");
@@ -30,12 +30,22 @@ namespace AppiumDotNetSamples.Helper
             return Env.IsSauce() ? "http://appium.github.io/appium/assets/TestApp7.1.app.zip" : System.IO.Path.GetFullPath("../../../apps/TestApp.app.zip");
         }
 
+        static public String IOSDeviceName()
+        {
+            return Environment.GetEnvironmentVariable("IOS_DEVICE_NAME") ?? "iPhone 6s";
+        }
+
+        static public String IOSPlatformVersion()
+        {
+            return Environment.GetEnvironmentVariable("IOS_PLATFORM_VERSION") ?? "11.4";
+        }
+
         static public String AndroidApp()
         {
             return Env.IsSauce() ? "http://appium.github.io/appium/assets/ApiDemos-debug.apk" : System.IO.Path.GetFullPath("../../../apps/ApiDemos-debug.apk");
         }
 
-        static public String AndroidVersion()
+        static public String AndroidDeviceName()
         {
             return Environment.GetEnvironmentVariable("ANDROID_DEVICE_VERSION") ?? "Android";
         }

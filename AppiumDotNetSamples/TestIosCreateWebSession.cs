@@ -21,9 +21,9 @@ namespace AppiumDotNetSamples
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.SetCapability(MobileCapabilityType.BrowserName, "Safari");
             capabilities.SetCapability(MobileCapabilityType.PlatformName, "iOS");
-            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, "10.3");
+            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, App.IOSPlatformVersion());
             capabilities.SetCapability(MobileCapabilityType.AutomationName, "XCUITest");
-            capabilities.SetCapability(MobileCapabilityType.DeviceName, "iPhone 6");
+            capabilities.SetCapability(MobileCapabilityType.DeviceName, App.IOSDeviceName());
 
             driver = new IOSDriver<IWebElement>(Env.ServerUri(), capabilities, Env.INIT_TIMEOUT_SEC);
             driver.Manage().Timeouts().ImplicitWait = Env.IMPLICIT_TIMEOUT_SEC;

@@ -20,7 +20,7 @@ namespace AppiumDotNetSamples
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.SetCapability(MobileCapabilityType.BrowserName, "Chrome");
-            capabilities.SetCapability(MobileCapabilityType.PlatformName, App.AndroidVersion());
+            capabilities.SetCapability(MobileCapabilityType.PlatformName, App.AndroidDeviceName());
             capabilities.SetCapability(MobileCapabilityType.PlatformVersion, App.AndroidPlatformVersion());
             capabilities.SetCapability(MobileCapabilityType.AutomationName, "UIAutomator2");
             capabilities.SetCapability(MobileCapabilityType.DeviceName, "Nexus");
