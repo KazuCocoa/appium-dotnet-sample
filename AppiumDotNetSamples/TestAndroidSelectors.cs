@@ -5,12 +5,13 @@ using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Remote;
 using System;
+using System.Collections.Generic;
 using AppiumDotNetSamples.Helper;
 
 namespace AppiumDotNetSamples
 {
     [TestFixture()]
-    public class AndroidBasicInteractionsTest
+    public class AndroidSelectorsTest
     {
         private AndroidDriver<AndroidElement> driver;
 
@@ -23,7 +24,6 @@ namespace AppiumDotNetSamples
             capabilities.SetCapability(MobileCapabilityType.PlatformVersion, App.AndroidPlatformVersion());
             capabilities.SetCapability(MobileCapabilityType.AutomationName, "UIAutomator2");
             capabilities.SetCapability(MobileCapabilityType.DeviceName, "Nexus");
-            capabilities.SetCapability("appActivity", ".app.SearchInvoke");
 
             capabilities.SetCapability(MobileCapabilityType.App, App.AndroidApp());
 
@@ -38,31 +38,31 @@ namespace AppiumDotNetSamples
         }
 
         [Test()]
-        public void TestShouldSendKetsToSearchBoxThenCheckTheValue()
+        public void TestShouldFindElementsByAccessibilityId()
         {
-            AndroidElement searchBoxElement = driver.FindElementById("txt_query_prefill");
-            searchBoxElement.SendKeys("Hello World!");
-
-            AndroidElement onSearchRequestButton = driver.FindElementById("btn_start_search");
-            onSearchRequestButton.Click();
-
-            AndroidElement seachText = driver.FindElementById("android:id/search_src_text");
-            Assert.AreEqual("Hello World!", seachText.Text);
+            ICollection<AndroidElement> elements = driver.FindElementsByAccessibilityId("Content");
+            Assert.AreEqual(1, elements.Count);
         }
 
         [Test()]
-        public void TestShouldClickAButtonThatOpensAnAlertAndThenDismissesIt()
+        public void TestShouldFindElementsById()
         {
-            driver.StartActivity("io.appium.android.apis", ".app.AlertDialogSamples");
+            ICollection<AndroidElement> elements = driver.FindElementsById("android:id/action_bar_container");
+            Assert.AreEqual(1, elements.Count);
+        }
 
-            AndroidElement openDialogButton = driver.FindElementById("io.appium.android.apis:id/two_buttons");
-            openDialogButton.Click();
+        [Test()]
+        public void TestShouldFindElementsByClassName()
+        {
+            ICollection<AndroidElement> elements = driver.FindElementsByClassName("android.widget.FrameLayout");
+            Assert.AreEqual(3, elements.Count);
+        }
 
-            AndroidElement alertElement = driver.FindElementById("android:id/alertTitle");
-            String alertText = alertElement.Text;
-            Assert.AreEqual("Lorem ipsum dolor sit aie consectetur adipiscing\nPlloaso mako nuto siwuf cakso dodtos anr koop.", alertText);
-
-            driver.FindElementById("android:id/button1").Click();
+        [Test()]
+        public void TestShouldFindElementsByXPath()
+        {
+            ICollection<AndroidElement> elements = driver.FindElementsByXPath("//*[@class='android.widget.FrameLayout']");
+            Assert.AreEqual(3, elements.Count);
         }
     }
 }

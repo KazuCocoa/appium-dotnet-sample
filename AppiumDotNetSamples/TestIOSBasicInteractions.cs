@@ -29,6 +29,12 @@ namespace AppiumDotNetSamples
             driver.Manage().Timeouts().ImplicitWait = Env.IMPLICIT_TIMEOUT_SEC;
         }
 
+        [TestFixtureTearDown()]
+        public void AfterAll()
+        {
+            driver.Quit();
+        }
+
         [Test()]
         public void TestShouldSendKetsToInputs()
         {
