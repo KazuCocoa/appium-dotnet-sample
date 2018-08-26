@@ -10,37 +10,36 @@ using AppiumDotNetSamples.Helper;
 namespace AppiumDotNetSamples
 {
     [TestFixture()]
-    public class IOSCreateSessionTest
+    public class IOSCreateWebSessionTest
     {
 
-        private IOSDriver<IOSElement> driver;
+        private IWebDriver driver;
 
         [TestFixtureSetUp()]
         public void BeforeAll()
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.SetCapability(MobileCapabilityType.BrowserName, "");
+            capabilities.SetCapability(MobileCapabilityType.BrowserName, "Safari");
             capabilities.SetCapability(MobileCapabilityType.PlatformName, "iOS");
             capabilities.SetCapability(MobileCapabilityType.PlatformVersion, "10.3");
             capabilities.SetCapability(MobileCapabilityType.AutomationName, "XCUITest");
             capabilities.SetCapability(MobileCapabilityType.DeviceName, "iPhone 6");
-            capabilities.SetCapability(MobileCapabilityType.App, App.IOSApp());
-            
-            driver = new IOSDriver<IOSElement>(Env.ServerUri(), capabilities, Env.INIT_TIMEOUT_SEC);
+
+            driver = new IOSDriver<IWebElement>(Env.ServerUri(), capabilities, Env.INIT_TIMEOUT_SEC);
             driver.Manage().Timeouts().ImplicitWait = Env.IMPLICIT_TIMEOUT_SEC;
         }
 
         [Test()]
-        public void TestShouldCreateAndDestroyIOSSessions()
+        public void TestShouldCreateAndDestroyIOSWebSessions()
         {
-            IOSElement element = driver.FindElementByClassName("XCUIElementTypeApplication");
-            String application_name = element.GetAttribute("name");
-            Assert.AreEqual("TestApp", application_name);
+            driver.Url = "https://www.google.com";
+            String title = driver.Title;
+            Assert.AreEqual("Google", title);
 
             driver.Quit();
 
             Assert.Throws<WebDriverException>(
-                () => { element.GetAttribute("name"); });
+                () => { title = driver.Title; });
         }
     }
 }

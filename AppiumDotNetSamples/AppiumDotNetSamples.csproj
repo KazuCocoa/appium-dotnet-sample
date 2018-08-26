@@ -51,6 +51,10 @@
     <Compile Include="TestIosCreateSession.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="TestAndroidCreateSession.cs" />
+    <Compile Include="TestIosCreateWebSession.cs" />
+    <Compile Include="TestAndroidCreateWebSession.cs" />
+    <Compile Include="TestIOSBasicInteractions.cs" />
+    <Compile Include="TestAndroidBasicInteractions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

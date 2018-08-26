@@ -10,9 +10,8 @@ using AppiumDotNetSamples.Helper;
 namespace AppiumDotNetSamples
 {
     [TestFixture()]
-    public class IOSCreateSessionTest
+    public class IOSBasicInteractionsTest
     {
-
         private IOSDriver<IOSElement> driver;
 
         [TestFixtureSetUp()]
@@ -25,22 +24,30 @@ namespace AppiumDotNetSamples
             capabilities.SetCapability(MobileCapabilityType.AutomationName, "XCUITest");
             capabilities.SetCapability(MobileCapabilityType.DeviceName, "iPhone 6");
             capabilities.SetCapability(MobileCapabilityType.App, App.IOSApp());
-            
+
             driver = new IOSDriver<IOSElement>(Env.ServerUri(), capabilities, Env.INIT_TIMEOUT_SEC);
             driver.Manage().Timeouts().ImplicitWait = Env.IMPLICIT_TIMEOUT_SEC;
         }
 
         [Test()]
-        public void TestShouldCreateAndDestroyIOSSessions()
+        public void TestShouldSendKetsToInputs()
         {
-            IOSElement element = driver.FindElementByClassName("XCUIElementTypeApplication");
-            String application_name = element.GetAttribute("name");
-            Assert.AreEqual("TestApp", application_name);
+            IOSElement textField = driver.FindElementById("TextField1");
+            Assert.Null(textField.GetAttribute("value"));
 
-            driver.Quit();
+            textField.SendKeys("Hello World!");
+            Assert.AreEqual("Hello World!", textField.GetAttribute("value"));
+        }
 
-            Assert.Throws<WebDriverException>(
-                () => { element.GetAttribute("name"); });
+        [Test()]
+        public void TestShouldClickAButtonThatOpensAnAlert()
+        {
+            IOSElement buttonElement = driver.FindElementByAccessibilityId("show alert");
+            buttonElement.Click();
+
+            String alertTitle = "Cool title";
+            IOSElement alertTitleElement = driver.FindElementByAccessibilityId(alertTitle);
+            Assert.AreEqual(alertTitle, alertTitleElement.GetAttribute("name"));
         }
     }
 }
